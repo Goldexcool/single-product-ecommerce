@@ -19,10 +19,35 @@ import { cartActions } from "../store/shopping-cart/cartSlice";
 // import { cartActions } from "../store/cartSlice";
 import Products from "../Data/Product";
 import Page from "../Component/Page";
+import { images } from "../../next.config";
 
 // Import Swiper React components
 
 const Home = () => {
+  const [img, setImg] = useState([
+    {
+      id: 1,
+      image: imageproduct,
+    },
+    {
+      id: 2,
+      image: imageproduct1,
+    },
+    {
+      id: 3,
+      image: imageproduct2,
+    },
+    {
+      id: 4,
+      image: imageproduct3,
+    },
+  ]);
+const [image, setImage] = useState(false)
+  // const targetImg = (e) => {
+  //   console.log(e.target)
+  // }
+
+  const [select, setSelect] = useState(0);
   const [allProducts, setAllProducts] = useState(Products);
 
   useEffect(() => {
@@ -37,15 +62,33 @@ const Home = () => {
     <div className={styles.relative}>
       <main id={styles.main}>
         <div className={styles.hero}>
-          <div className={styles.hero_wrapper}>
+          
+           <div className={styles.hero_wrapper}>
             <Image
-              src={imageThumbnail}
+              src={img[select].image}
               alt=""
               width={420}
               height={350}
               className={styles.thumbnail}
             />
-            <div className={styles.image}>
+            <div className={styles.imag_wrapper}>
+            {img.map((item, i) => (
+              
+              <div key={item.id} className={`styles.img ${select === i ? styles.border : ""}`}>
+                <Image
+                  src={item.image}
+                  alt=""
+                  width={90}
+                  height={70}
+                  onClick={()=>setSelect(i)}
+                  className={styles.thumb}
+                />
+              </div>
+
+            ))
+            }
+            </div>
+            {/* <div className={styles.image}>
               <Image
                 src={imagepro}
                 alt=""
@@ -74,8 +117,8 @@ const Home = () => {
                 height={70}
                 className={styles.thumb}
               />
-            </div>
-          </div>
+            </div> */}
+          </div> 
           <div className={styles.hero_content}>
             <div className={styles.heder_con}>
               {allProducts.map((item) => (
